@@ -40,6 +40,16 @@ export class ClientService {
         userType: 'DONOR',
         isActive: true,
         bloodGroup: bloodGroup || undefined,
+        profile: {
+          isActive: true,
+          district: district ? { contains: district } : undefined,
+          upazila: upazila ? { contains: upazila } : undefined,
+          area: area ? { contains: area } : undefined,
+        },
+        OR: [
+          { lastDonationDate: null },
+          { lastDonationDate: { lt: ninetyDaysAgo } },
+        ],
       },
     });
 

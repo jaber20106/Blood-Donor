@@ -141,16 +141,38 @@ export class UserService {
     const user = await this.prisma.user.findUnique({ where: { id: userId } });
     if (!user) throw new NotFoundException('User not found');
 
-    await this.prisma.user.update({
-      where: { id: userId },
-      data: { ...data, isProfileComplete: true },
-    });
+    const userData: any = {};
+    const profileData: any = {};
 
-    if (user.userType === 'DONOR') {
+    if (data.name !== undefined) userData.name = data.name;
+    if (data.phone !== undefined) userData.phone = data.phone;
+    if (data.bloodGroup !== undefined) userData.bloodGroup = data.bloodGroup;
+    if (data.gender !== undefined) userData.gender = data.gender;
+    if (data.lastDonationDate !== undefined) userData.lastDonationDate = data.lastDonationDate;
+    
+    if (data.district !== undefined) profileData.district = data.district;
+    if (data.upazila !== undefined) profileData.upazila = data.upazila;
+    if (data.area !== undefined) profileData.area = data.area;
+    if (data.additionalInfo !== undefined) profileData.additionalInfo = data.additionalInfo;
+    if (data.facebook !== undefined) profileData.facebook = data.facebook;
+    if (data.linkedin !== undefined) profileData.linkedin = data.linkedin;
+    if (data.twitter !== undefined) profileData.twitter = data.twitter;
+    if (data.website !== undefined) profileData.website = data.website;
+    if (data.mobile !== undefined) profileData.mobile = data.mobile;
+    if (data.phone !== undefined) profileData.mobile = data.phone;
+
+    if (Object.keys(userData).length > 0) {
+      await this.prisma.user.update({
+        where: { id: userId },
+        data: { ...userData, isProfileComplete: true },
+      });
+    }
+
+    if (user.userType === 'DONOR' && Object.keys(profileData).length > 0) {
       await this.prisma.donorProfile.upsert({
         where: { userId },
-        create: { userId, ...data },
-        update: data,
+        create: { userId, ...profileData },
+        update: profileData,
       });
     }
 

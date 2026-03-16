@@ -52,6 +52,7 @@ const Sidebar = () => {
       top="64px"
       boxShadow="sm"
       py={4}
+      zIndex={5}
     >
       <VStack spacing={2} align="stretch" px={4}>
         {menuItems.map((item) => (

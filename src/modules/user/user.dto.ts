@@ -142,6 +142,11 @@ export class UpdateProfileDto {
   @ApiProperty({ example: '+1234567890', required: false })
   @IsOptional()
   @IsString()
+  phone?: string;
+
+  @ApiProperty({ example: '+1234567890', required: false })
+  @IsOptional()
+  @IsString()
   mobile?: string;
 
   @ApiProperty({ example: 'O_POSITIVE', required: false })

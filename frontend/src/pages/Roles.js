@@ -99,7 +99,6 @@ const Roles = () => {
   const handleSubmit = async () => {
     try {
       const data = {
-        name: formData.name,
         description: formData.description,
         permissionIds: formData.permissionIds,
       };
@@ -107,7 +106,11 @@ const Roles = () => {
         await roleService.updateRole(editingRole.id, data);
         toast({ title: 'Role updated', status: 'success', duration: 2000 });
       } else {
-        await roleService.createRole(data);
+        await roleService.createRole({
+          name: formData.name,
+          description: formData.description,
+          permissionIds: formData.permissionIds,
+        });
         toast({ title: 'Role created', status: 'success', duration: 2000 });
       }
       fetchData();
@@ -141,7 +144,7 @@ const Roles = () => {
     <Box minH="100vh" bg="gray.50">
       <Navbar />
       <Sidebar />
-      <Box ml={{ base: 0, md: '250px' }} pt="64px" p={6}>
+      <Box ml={{ base: 0, md: '250px' }} pt="64px" p={6} position="relative" zIndex={1} overflow="visible">
         <Container maxW="container.xl">
           <VStack spacing={6} align="stretch">
             <Box display="flex" justifyContent="space-between" alignItems="center">
@@ -207,7 +210,7 @@ const Roles = () => {
         </Container>
       </Box>
 
-      <Modal isOpen={isModalOpen} onClose={handleCloseModal} size="xl">
+      <Modal isOpen={isModalOpen} onClose={handleCloseModal} size="4xl" scrollBehavior="inside">
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>{editingRole ? 'Edit Role' : 'Create Role'}</ModalHeader>

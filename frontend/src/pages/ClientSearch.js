@@ -60,13 +60,15 @@ const ClientSearch = () => {
       if (filters.area) params.area = filters.area;
       
       const response = await clientService.searchDonors(params);
-      setDonors(response.data);
+      const donorData = response.data?.data || response.data || [];
+      setDonors(Array.isArray(donorData) ? donorData : []);
     } catch (error) {
       toast({
         title: 'Error searching donors',
         status: 'error',
         duration: 3000,
       });
+      setDonors([]);
     } finally {
       setLoading(false);
     }
@@ -165,17 +167,17 @@ const ClientSearch = () => {
                         </Tr>
                       </Thead>
                       <Tbody>
-                        {donors.map((donor) => (
+                          {donors.map((donor) => (
                           <Tr key={donor.id}>
                             <Td>{donor.bloodGroup?.replace('_', ' ') || 'N/A'}</Td>
-                            <Td>{donor.phone || donor.profile?.mobile || 'N/A'}</Td>
+                            <Td>{donor.phone || 'N/A'}</Td>
                             <Td>{donor.lastDonationDate ? new Date(donor.lastDonationDate).toLocaleDateString() : 'Never'}</Td>
-                            <Td>{donor.profile?.district || 'N/A'}</Td>
-                            <Td>{donor.profile?.upazila || 'N/A'}</Td>
-                            <Td>{donor.profile?.area || 'N/A'}</Td>
+                            <Td>{donor.district || 'N/A'}</Td>
+                            <Td>{donor.upazila || 'N/A'}</Td>
+                            <Td>{donor.area || 'N/A'}</Td>
                             <Td>
-                              <Badge colorScheme={donor.profile?.availableStatus === 'AVAILABLE' ? 'green' : 'red'}>
-                                {donor.profile?.availableStatus || 'UNKNOWN'}
+                              <Badge colorScheme={donor.availableStatus === 'AVAILABLE' ? 'green' : 'red'}>
+                                {donor.availableStatus || 'UNKNOWN'}
                               </Badge>
                             </Td>
                             <Td>

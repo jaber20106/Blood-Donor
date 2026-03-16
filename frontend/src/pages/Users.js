@@ -192,7 +192,7 @@ const Users = () => {
     <Box minH="100vh" bg="gray.50">
       <Navbar />
       <Sidebar />
-      <Box ml={{ base: 0, md: '250px' }} pt="64px" p={6}>
+      <Box ml={{ base: 0, md: '250px' }} pt="64px" p={6} position="relative" zIndex={1} overflow="visible">
         <Container maxW="container.xl">
           <VStack spacing={6} align="stretch">
             <Box display="flex" justifyContent="space-between" alignItems="center">
@@ -282,7 +282,7 @@ const Users = () => {
         </Container>
       </Box>
 
-      <Modal isOpen={isModalOpen} onClose={handleCloseModal} size="lg">
+      <Modal isOpen={isModalOpen} onClose={handleCloseModal} size="3xl" scrollBehavior="inside">
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>{editingUser ? 'Edit User' : 'Create New User'}</ModalHeader>
