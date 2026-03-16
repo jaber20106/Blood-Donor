@@ -613,7 +613,7 @@ Role ──────► Permission (Many-to-Many)
 
 1. **Navigate to project root:**
    ```bash
-   cd D:\AI Explore\noyon
+   cd D:\AI Explore\Blood Donor
    ```
 
 2. **Install backend dependencies:**
