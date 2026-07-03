@@ -38,6 +38,12 @@ This is a **Blood Donation Management System** that connects blood donors with p
 
 ---
 
+## Learning Note
+
+> This project was built with AI-assisted development as part of my learning journey. I used AI to accelerate development while personally studying, testing, debugging, and understanding the application's architecture, frontend, backend, authentication flow, database design, and API implementation.
+
+The purpose of this repository is to demonstrate my understanding of modern full-stack application architecture and software development practices.
+
 ## 2. Technologies Used
 
 ### Frontend
